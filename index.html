@@ -19,18 +19,21 @@
             display: grid;
             /* Using a slightly more flexible layout for labels to fit smaller screens */
             grid-template-columns: auto 1fr;
-            gap: 15px 10px;
+            gap: 10px 10px;
             align-items: center;
         }
         .form-grid label {
             text-align: right;
             padding-right: 10px;
+            padding-left: 10px;
+            font-size: 15px;
+
             /* Prevents long labels from wrapping */
             white-space: nowrap;
         }
         /* --- END MODIFICATION --- */
         
-        .form-grid input[type="text"], .form-grid input[type="password"], .form-grid select { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        .form-grid input[type="text"], .form-grid input[type="password"], .form-grid select { width: 75%; padding: 3px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
         
         /* This rule now works on all screen sizes to keep alignment */
         .grid-col-span-2 {
@@ -44,9 +47,9 @@
         .sign-in-btn:hover { background-color: #d1d1d1; }
         .version-container { display: flex; align-items: center; width: 100%; }
         .version-container select { flex-grow: 1; }
-        .whats-this { color: white; text-decoration: none; font-size: 12px; margin-left: 10px; white-space: nowrap; }
+        .whats-this { color: black; text-decoration: none; font-size: 10px; margin-left: 10px; white-space: nowrap; }
         .whats-this:hover { text-decoration: underline; }
-        footer { background-color: #005a94; color: white; padding: 20px 30px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; }
+        footer { background-color: #005a94; color: white; padding: 20px 30px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; align-items: center; }
         .footer-logo { font-size: 20px; font-weight: bold; }
         .shield-icon { position: fixed; bottom: 15px; left: 15px; background-color: #4c9fdc; border-radius: 5px; padding: 10px; display: flex; align-items: center; justify-content: center; }
         .shield-icon svg { fill: white; width: 24px; height: 24px; }
@@ -76,7 +79,7 @@
                     <div class="form-grid">
                         <label for="myName">Username:</label>
                         <input type="text" id="myName">
-                        <label for="maritaStatus">Password:</label>
+                        <label for="maritaStatus">Password :</label>
                         <input type="password" id="maritaStatus">
                         <label></label> 
                         <div class="actions-container grid-col-span-2">
